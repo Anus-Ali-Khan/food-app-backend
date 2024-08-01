@@ -3,9 +3,13 @@ const colors = require("colors");
 const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
+const connectDb = require("./config/db");
 
 //dot env configuration
 dotenv.config();
+
+//DB connection
+connectDb();
 
 //rest object
 const app = express();
@@ -18,6 +22,7 @@ app.use(morgan("dev")); // show which url is hitted and how much time it takes
 //route
 // URL => http://localhost:8080
 app.use("/api/v1/test", require("./routes/testRoutes"));
+app.use("/api/v1/auth", require("./routes/authRoutes"));
 
 app.get("/", (req, res) => {
   return res
